@@ -57,10 +57,26 @@ namespace Odev27.Controllers
         {
             var hayvan = _db.Hayvanlar.Find(id);
 
+            string dosyaYolu = Path.Combine(_env.WebRootPath, "img", hayvan!.Resim);
+            System.IO.File.Delete(dosyaYolu);
+
             _db.Hayvanlar.Remove(hayvan);
             _db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+
+        [Route("Home/Duzenle/{id}/{girilenAd}")]
+        public IActionResult Duzenle(int id, string girilenAd)
+        {
+            var hayvan = _db.Hayvanlar.Find(id);
+            hayvan!.Ad = girilenAd;
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

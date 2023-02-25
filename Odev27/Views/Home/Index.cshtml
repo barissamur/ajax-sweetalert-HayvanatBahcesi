@@ -12,38 +12,19 @@
         <div class="mb-2">
             <label asp-for="Ad"></label>
             <input asp-for="Ad" type="text" class="form-control" />
-            <span asp-validation-for="Ad"></span>
+            <span asp-validation-for="Ad" class="text-danger"></span>
         </div>
         <div class="mb-2">
             <label asp-for="Resim"></label>
             <input asp-for="Resim" type="file" class="form-control" />
-            <span asp-validation-for="Resim"></span>
+            <span asp-validation-for="Resim" class="text-danger"></span>
         </div>
         <button class="btn btn-primary">Ekle</button>
     </form>
 </div>
 
-
-<div class="row mt-3">
-    @foreach (var item in Model.Hayvanlar)
-    {
-        <div class="col-lg-3 col-md-6 col-12 mb-3">
-            <div class="card" style="width: 18rem;">
-                <div style="height:200px;">
-                    <img src="~/img/@item.Resim" class="card-img-top h-100" alt="Resim yok">
-                </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">@item.Ad</h5>
-                </div>
-                <div class="card-footer d-flex">
-                    <a id="@item.Id" class="btn btn-primary me-auto"><i class="fa-solid fa-edit"></i></a>
-                    <a onclick="sil(@item.Id)" class="btn btn-danger ms-auto"><i class="fa-solid fa-close"></i></a>
-                </div>
-            </div>
-        </div>
-    }
-</div>
-
+@* Listelemeyi burda ViewComponent ile yaptık *@
+<vc:listele />
 
 @section Scripts{
     <script>
@@ -68,6 +49,31 @@
                     });
                 }
             })
+        }
+
+        function duzenle(id) {
+            let url = "@Url.Action("Duzenle", "Home")/" + id;
+
+
+            Swal.fire({
+                title: 'Yeni adı giriniz',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Güncelle',
+                cancelButtonText: 'İptal',
+                showLoaderOnConfirm: true,
+                preConfirm: (girilenAd) => {
+
+                    $.ajax({
+                        success: function () {
+                            window.location.href = url + "/" + girilenAd;
+                        }
+                    });
+                }
+                })
         }
     </script>
 }
