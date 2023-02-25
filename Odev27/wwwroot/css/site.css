@@ -1,24 +1,24 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
-.hayvanCard:hover{
-    transform:scale(1.2);
+.hayvanCard:hover {
+    transform: scale(1.2);
     box-shadow: 0px 0px 25px 4px black;
     z-index: 1;
     opacity: 90%;
@@ -27,4 +27,16 @@ body {
 .hayvanCard {
     box-shadow: 0px 0px 10px 0px black;
     transition: 0.4s;
+}
+
+.icerik {
+    margin-top: 65px;
+}
+
+.foot {
+    padding: 10px;
+}
+
+.validation-summary-errors > ul {
+    margin-bottom: 0;
 }

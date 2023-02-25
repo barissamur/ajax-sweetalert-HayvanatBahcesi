@@ -25,10 +25,14 @@ namespace Odev27.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Index(HayvanViewModel vm)
         {
-            if (!vm.Resim.ContentType.StartsWith("image/"))
+            if (vm.Resim == null)
+                return View(vm);
+
+
+            else if (!vm.Resim.ContentType.StartsWith("image/"))
                 ModelState.AddModelError("resim", "Geçersiz bir resim dosyası seçtiniz");
 
             if (ModelState.IsValid)
@@ -70,11 +74,17 @@ namespace Odev27.Controllers
         }
 
 
-        [Route("Home/Duzenle/{id}/{girilenAd}")]
+        [Route("Home/Duzenle/{id}/{girilenAd?}")]
         public IActionResult Duzenle(int id, string girilenAd)
-        {
-            var hayvan = _db.Hayvanlar.Find(id);
-            hayvan!.Ad = girilenAd;
+         {
+            if (girilenAd == null)
+                ModelState.AddModelError("isim", "İsim boş bırakılamaz");
+
+            if (ModelState.IsValid)
+            {
+                var hayvan = _db.Hayvanlar.Find(id);
+                hayvan!.Ad = girilenAd;
+            }
             _db.SaveChanges();
 
             return RedirectToAction("Index");

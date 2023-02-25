@@ -3,7 +3,7 @@
 <div class="row mt-3">
     @foreach (var item in Model.Hayvanlar)
     {
-        <div class="col-lg-3 col-md-6 col-12 mb-3">
+        <div class="col-xl-3 col-md-6 col-12 mb-3">
             <div class="card hayvanCard" style="width: 18rem;">
                 <div style="height:200px;">
                     <img src="~/img/@item.Resim" class="card-img-top h-100" alt="Resim yok">
@@ -12,8 +12,8 @@
                     <h5 id="ad" class="card-title">@item.Ad</h5>
                 </div>
                 <div class="card-footer d-flex">
-                    <a onclick="duzenle(@item.Id)" class="btn btn-primary me-auto"><i class="fa-solid fa-edit"></i></a>
-                    <a onclick="sil(@item.Id)" class="btn btn-danger ms-auto"><i class="fa-solid fa-close"></i></a>
+                    <a onclick="duzenle(@item.Id)" class="btn btn-danger me-auto"><i class="fa-solid fa-edit"></i></a>
+                    <a onclick="sil(@item.Id)" class="btn btn-primary ms-auto"><i class="fa-solid fa-close"></i></a>
                 </div>
             </div>
         </div>

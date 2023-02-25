@@ -4,7 +4,14 @@
     ViewData["Title"] = "Anasayfa";
 }
 
-<h1>HAYVANAT BAHÇESİ</h1>
+<h1 class="text-warning">HAYVANAT BAHÇESİ <i class="fa-solid fa-paw"></i></h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <div asp-validation-summary="All"></div>
+    </div>
+}
 
 <div class="col-6">
 
@@ -19,7 +26,7 @@
             <input asp-for="Resim" type="file" class="form-control" />
             <span asp-validation-for="Resim" class="text-danger"></span>
         </div>
-        <button class="btn btn-primary">Ekle</button>
+        <button class="btn btn-info">Ekle</button>
     </form>
 </div>
 
@@ -73,17 +80,27 @@
                     isim = text;
 
                     Swal.fire({
-                        title: isim + ' için adı giriniz',
+                        icon:'question',
+                        title: '"' + isim + '"' + ' için yeni bir ad giriniz',
                         input: 'text',
                         inputAttributes: {
                             autocapitalize: 'off'
                         },
                         showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Güncelle',
                         cancelButtonText: 'İptal',
                         showLoaderOnConfirm: true,
-                        preConfirm: (girilenAd) => {
 
+                        //hata olursa false oluyor ve if ile yakalayıp yazdırıyoruz
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Bu alan boş bırakılamaz!'
+                            }
+                        },
+
+                        // textbox içindeki değeri confirm'den sonra 'girilenAd' değişkeni içerisinde atıyoruz
+                        preConfirm: (girilenAd) => {
                             $.ajax({
                                 success: function () {
                                     window.location.href = url + "/" + girilenAd;
@@ -93,27 +110,6 @@
                         }
                     })
                 })
-
-            Swal.fire({
-                title: 'Yeni adı giriniz',
-                input: 'text',
-                inputAttributes: {
-                    autocapitalize: 'off'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Güncelle',
-                cancelButtonText: 'İptal',
-                showLoaderOnConfirm: true,
-                preConfirm: (girilenAd) => {
-
-                    $.ajax({
-                        success: function () {
-                            window.location.href = url + "/" + girilenAd;
-
-                        }
-                    });
-                }
-            })
         }
     </script>
 }
