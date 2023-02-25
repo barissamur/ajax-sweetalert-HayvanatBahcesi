@@ -16,3 +16,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.hayvanCard:hover{
+    transform:scale(1.2);
+    box-shadow: 0px 0px 25px 4px black;
+    z-index: 1;
+    opacity: 90%;
+}
+
+.hayvanCard {
+    box-shadow: 0px 0px 10px 0px black;
+    transition: 0.4s;
+}

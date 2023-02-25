@@ -4,12 +4,12 @@
     @foreach (var item in Model.Hayvanlar)
     {
         <div class="col-lg-3 col-md-6 col-12 mb-3">
-            <div class="card" style="width: 18rem;">
+            <div class="card hayvanCard" style="width: 18rem;">
                 <div style="height:200px;">
                     <img src="~/img/@item.Resim" class="card-img-top h-100" alt="Resim yok">
                 </div>
                 <div class="card-body text-center">
-                    <h5 class="card-title">@item.Ad</h5>
+                    <h5 id="ad" class="card-title">@item.Ad</h5>
                 </div>
                 <div class="card-footer d-flex">
                     <a onclick="duzenle(@item.Id)" class="btn btn-primary me-auto"><i class="fa-solid fa-edit"></i></a>

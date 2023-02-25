@@ -28,6 +28,9 @@ namespace Odev27.Controllers
         [HttpPost]
         public IActionResult Index(HayvanViewModel vm)
         {
+            if (!vm.Resim.ContentType.StartsWith("image/"))
+                ModelState.AddModelError("resim", "Geçersiz bir resim dosyası seçtiniz");
+
             if (ModelState.IsValid)
             {
                 string dosyaAd = vm.Resim.FileName;
@@ -75,8 +78,12 @@ namespace Odev27.Controllers
             _db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
 
-
+        public string Ad(int id)
+        {
+            var hayvan = _db.Hayvanlar.Find(id);
+            return hayvan!.Ad;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

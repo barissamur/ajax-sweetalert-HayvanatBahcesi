@@ -30,30 +30,69 @@
     <script>
         function sil(id) {
             let url = "@Url.Action("Sil", "Home")?id=" + id;
+            let isimUrl = "@Url.Action("Ad", "Home")?id=" + id;
 
-            Swal.fire({
-                title:'Öğeyi silmek istediğinize emin misiniz?',
-                text: "Bu dosya silindikten sonra geri alınamaz!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Evet, sil!',
-                cancelButtonText: 'Hayır!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        success: function () {
-                            window.location.href = url;
+            let isim;
+
+            fetch(isimUrl)
+                .then(res => res.text())
+                .then(text => {
+                    isim = text;
+
+                    Swal.fire({
+                        title: isim + ' adlı öğeyi silmek istediğinize emin misiniz?',
+                        text: "Bu dosya silindikten sonra geri alınamaz!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Evet, sil!',
+                        cancelButtonText: 'Hayır!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                success: function () {
+                                    window.location.href = url;
+                                }
+                            });
                         }
-                    });
-                }
-            })
+                    })
+                })
         }
 
         function duzenle(id) {
+
+            let isimUrl = "@Url.Action("Ad", "Home")?id=" + id;
             let url = "@Url.Action("Duzenle", "Home")/" + id;
 
+            let isim;
+
+            fetch(isimUrl)
+                .then(res => res.text())
+                .then(text => {
+                    isim = text;
+
+                    Swal.fire({
+                        title: isim + ' için adı giriniz',
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: 'Güncelle',
+                        cancelButtonText: 'İptal',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (girilenAd) => {
+
+                            $.ajax({
+                                success: function () {
+                                    window.location.href = url + "/" + girilenAd;
+
+                                }
+                            });
+                        }
+                    })
+                })
 
             Swal.fire({
                 title: 'Yeni adı giriniz',
@@ -70,10 +109,11 @@
                     $.ajax({
                         success: function () {
                             window.location.href = url + "/" + girilenAd;
+
                         }
                     });
                 }
-                })
+            })
         }
     </script>
 }
