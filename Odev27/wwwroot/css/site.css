@@ -15,6 +15,7 @@ html {
 
 body {
     margin-bottom: 60px;
+    height:100%;
 }
 
 .hayvanCard:hover {
@@ -31,10 +32,14 @@ body {
 
 .icerik {
     margin-top: 65px;
+    height:100%;
 }
 
 .foot {
     padding: 10px;
+    position:absolute;
+    bottom:0px;
+    width:100%;
 }
 
 .validation-summary-errors > ul {

@@ -55,15 +55,12 @@
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Evet, sil!',
                         cancelButtonText: 'Hayır!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                success: function () {
-                                    window.location.href = url;
-                                }
-                            });
-                        }
                     })
+                        .then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = url;
+                            }
+                        })
                 })
         }
 
