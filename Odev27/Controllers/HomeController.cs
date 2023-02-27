@@ -24,6 +24,10 @@ namespace Odev27.Controllers
             return View(vm);
         }
 
+        public IActionResult Listele()
+        {
+            return Json(_db.Hayvanlar);
+        }
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Index(HayvanViewModel vm)
@@ -69,8 +73,9 @@ namespace Odev27.Controllers
 
             _db.Hayvanlar.Remove(hayvan);
             _db.SaveChanges();
+            var hayvanlar = _db.Hayvanlar;
 
-            return RedirectToAction("Index");
+            return Json(hayvanlar);
         }
 
         [Route("Home/YeniAd/{id}/{girilenAd?}")]

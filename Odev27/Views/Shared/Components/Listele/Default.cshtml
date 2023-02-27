@@ -1,22 +1,6 @@
-﻿@model HayvanViewModel
+﻿
 
-<div class="row mt-3">
-    @foreach (var item in Model.Hayvanlar)
-    {
-        <div class="col-xl-3 col-md-6 col-12 mb-3">
-            <div class="card hayvanCard" style="width: 18rem;">
-                <div style="height:200px;">
-                    <img src="~/img/@item.Resim" class="card-img-top h-100" alt="Resim yok">
-                </div>
-                <div class="card-body text-center">
-                    <h5 id="@item.Id" class="card-title">@item.Ad</h5>
-                </div>
-                <div class="card-footer d-flex">
-                    <a onclick="duzenle(@item.Id)" class="btn btn-danger me-auto"><i class="fa-solid fa-edit"></i></a>
-                    <a onclick="sil(@item.Id)" class="btn btn-primary ms-auto"><i class="fa-solid fa-close"></i></a>
-                </div>
-            </div>
-        </div>
-    }
+<div id="hayvanlar" class="row mt-3">
+  
 </div>
 

@@ -29,6 +29,10 @@
         <button class="btn btn-info">Ekle</button>
     </form>
 </div>
+<br />
+<br />
+<br />
+<br />
 
 @* Listelemeyi burda ViewComponent ile yaptık *@
 <vc:listele />
@@ -58,7 +62,29 @@
                     })
                         .then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = url;
+                                fetch(url)
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        $("#hayvanlar").html("");
+                                        for (const hayvan of data) {
+                                            $("#hayvanlar").append(
+                                                `<div class="col-xl-3 col-md-6 col-12 mb-3">
+                                                    <div class="card hayvanCard" style="width: 18rem;">
+                                                        <div style="height:200px;">
+                                                            <img src="/img/${hayvan.resim}" class="card-img-top h-100" alt="Resim yok">
+                                                        </div>
+                                                        <div class="card-body text-center">
+                                                            <h5 id="${hayvan.id}" class="card-title">${hayvan.ad}</h5>
+                                                        </div>
+                                                        <div class="card-footer d-flex">
+                                                            <a onclick="duzenle(${hayvan.id})" class="btn btn-danger me-auto"><i class="fa-solid fa-edit"></i></a>
+                                                            <a onclick="sil(${hayvan.id})" class="btn btn-primary ms-auto"><i class="fa-solid fa-close"></i></a>
+                                                        </div>
+                                                    </div>
+                                                 </div>`
+                                            )
+                                        }
+                                    })
                             }
                         })
                 })
@@ -109,5 +135,34 @@
                     })
                 })
         }
+
+            let url = "@Url.Action("Listele", "Home")";
+
+
+        // anasayfa açılırken yüklenecek
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    for (const hayvan of data) {
+                        $("#hayvanlar").append(
+                            ` <div class="col-xl-3 col-md-6 col-12 mb-3">
+                                <div class="card hayvanCard" style="width: 18rem;">
+                                    <div style="height:200px;">
+                                        <img src="/img/${hayvan.resim}" class="card-img-top h-100" alt="Resim yok">
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h5 id="${hayvan.id}" class="card-title">${hayvan.ad}</h5>
+                                    </div>
+                                    <div class="card-footer d-flex">
+                                        <a onclick="duzenle(${hayvan.id})" class="btn btn-danger me-auto"><i class="fa-solid fa-edit"></i></a>
+                                        <a onclick="sil(${hayvan.id})" class="btn btn-primary ms-auto"><i class="fa-solid fa-close"></i></a>
+                                    </div>
+                                </div>
+                            </div>`
+
+                        )
+                    }
+                })
+
     </script>
 }
