@@ -47,7 +47,7 @@
                     isim = text;
 
                     Swal.fire({
-                        title: isim + ' adlı öğeyi silmek istediğinize emin misiniz?',
+                        title: '"'+ isim + '"' + ' adlı öğeyi silmek istediğinize emin misiniz?',
                         text: "Bu dosya silindikten sonra geri alınamaz!",
                         icon: 'warning',
                         showCancelButton: true,
@@ -64,10 +64,12 @@
                 })
         }
 
-        function duzenle(id) {
 
+        function duzenle(id) {
             let isimUrl = "@Url.Action("Ad", "Home")?id=" + id;
-            let url = "@Url.Action("Duzenle", "Home")/" + id;
+            let url = "@Url.Action("YeniAd", "Home")/" + id;
+
+            let strId = "#" + id;
 
             let isim;
 
@@ -98,12 +100,11 @@
 
                         // textbox içindeki değeri confirm'den sonra 'girilenAd' değişkeni içerisinde atıyoruz
                         preConfirm: (girilenAd) => {
-                            $.ajax({
-                                success: function () {
-                                    window.location.href = url + "/" + girilenAd;
-
-                                }
-                            });
+                            fetch(url + "/" + girilenAd)
+                                .then(rsp => rsp.text())
+                                .then(txt => {
+                                    $(strId).text(txt)
+                                });
                         }
                     })
                 })

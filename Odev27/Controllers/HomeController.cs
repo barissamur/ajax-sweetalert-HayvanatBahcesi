@@ -73,21 +73,18 @@ namespace Odev27.Controllers
             return RedirectToAction("Index");
         }
 
-
-        [Route("Home/Duzenle/{id}/{girilenAd?}")]
-        public IActionResult Duzenle(int id, string girilenAd)
-         {
+        [Route("Home/YeniAd/{id}/{girilenAd?}")]
+        public string YeniAd(int id, string girilenAd)
+        {
             if (girilenAd == null)
                 ModelState.AddModelError("isim", "İsim boş bırakılamaz");
 
-            if (ModelState.IsValid)
-            {
-                var hayvan = _db.Hayvanlar.Find(id);
-                hayvan!.Ad = girilenAd;
-            }
+            var hayvan = _db.Hayvanlar.Find(id);
+            hayvan!.Ad = girilenAd!;
+
             _db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return hayvan!.Ad;
         }
 
         public string Ad(int id)
